@@ -9,7 +9,7 @@
 2) Make Sure Image Resolution DOES NOT EXCEED 4 BYTES IN SIZE (HEX ASCII)
 3) Change {INSERT DIRECTORY HERE} In sentanceWriter For Telemetry Output
 
-## Information Regarding Camera Module
+### Information Regarding Camera Module
 
 The piCAM is the World’s First Space-Friendly Digital CubeSat Camera module specially designed to provide the colorful imaging in JPEG format and VGA resolution aboard small satellites with external Flashlight control signal.The unit enables a possibility to trigger signal for external LED-based flashlight to illuminate nearby objects of interest in dark orbital periods, such as solar sails, booms, deployable structures, tethers, etc.
 
