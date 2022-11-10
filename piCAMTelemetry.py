@@ -25,14 +25,15 @@ while(fileNotFound == False):
         else:
 
             img = Image.open(imageName)
+            
+            #Converts Image to 3D numpy array (H x W x 3), 3 -> [255,255,255]
             imageArray = np.asarray(img)
+            
             fileNotFound = True
 
     except(FileNotFoundError):
 
         print("File Not Found, Try Again Or Type 'quit' To Exit")
-
-#Converts Image to 3D array (H x W x 3), 3 -> [255,255,255]
 
 #INT of #3
 def totalSentances(imageArray):
@@ -41,7 +42,7 @@ def totalSentances(imageArray):
     width = len(imageArray[0]) 
     pixelAmount = height*width
     
-    totalSentances = int(math.ceil(pixelAmount / (56/2/3))) + 1
+    totalSentances = int(math.floor(pixelAmount / (56/2/3))) + 1
 
     return totalSentances
 
@@ -53,7 +54,7 @@ def sentanceWriter(imageArray):
     intSentanceCounter = -1
     imageHexLine = ""
     
-    textFile = open("C:/{INSERT DIRECTORY HERE}/piCAMTELEMTRY.txt", "w")
+    textFile = open("C:/[INSERT DIRECTORY HERE]/piCAMTELEMTRY.txt", "w")
 
     for height in imageArray:
         for width in height:
@@ -70,7 +71,7 @@ def sentanceWriter(imageArray):
                     textFile.write(sentance)
 
                     imageHexLine = ""
-    
+
     intSentanceCounter += 1
     hexSentanceCounter = ("%04x" % intSentanceCounter).upper()
     sentance = "@" + hexSentanceCounter + hexTotalSentances + (imageHexLine.ljust(56, "0")) + "\r\n"
