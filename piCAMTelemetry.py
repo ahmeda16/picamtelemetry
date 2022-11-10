@@ -1,8 +1,5 @@
 import math
-import os.path
-
 import numpy as np
-import serial
 from PIL import Image
 
 #Image Data To Be Mimicked
@@ -16,11 +13,26 @@ from PIL import Image
 #6 ⇐| LF character
 
 #User Input For Any Given Image
-imageName = str(input("Enter Image To Mimic Telemetry: "))
-img = Image.open(imageName)
+fileNotFound = False
+while(fileNotFound == False):
+    try:
+        imageName = str(input("Enter Image To Mimic Telemetry: "))
+
+        if (imageName == "quit"):
+
+            fileNotFound = True
+
+        else:
+
+            img = Image.open(imageName)
+            imageArray = np.asarray(img)
+            fileNotFound = True
+
+    except(FileNotFoundError):
+
+        print("File Not Found, Try Again Or Type 'quit' To Exit")
 
 #Converts Image to 3D array (H x W x 3), 3 -> [255,255,255]
-imageArray = np.asarray(img)
 
 #INT of #3
 def totalSentances(imageArray):
@@ -33,9 +45,36 @@ def totalSentances(imageArray):
 
     return totalSentances
 
-dataDecimalArray = np.zeros(0)
+#MASTER FUNCTION TO WRITE CAMERA TELEMETRY
+def sentanceWriter(imageArray):
+    intTotalSentances = totalSentances(imageArray)
+    hexTotalSentances = "%04x" % intTotalSentances
 
-# for height in imageArray:
-#     for width in height:
-#         for value in width:
+    intSentanceCounter = -1
+    imageHexLine = ""
+    
+    textFile = open("C:/{INSERT DIRECTORY HERE}/piCAMTELEMTRY.txt", "w")
 
+    for height in imageArray:
+        for width in height:
+            for value in width:
+                
+                imageHexLine += ("%02x" % value).upper()
+                
+                if (len(imageHexLine) == 56):
+                
+                    intSentanceCounter += 1
+                    hexSentanceCounter = ("%04x" % intSentanceCounter).upper()
+
+                    sentance = "@" + hexSentanceCounter + hexTotalSentances + imageHexLine + "\r\n"
+                    textFile.write(sentance)
+
+                    imageHexLine = ""
+    
+    intSentanceCounter += 1
+    hexSentanceCounter = ("%04x" % intSentanceCounter).upper()
+    sentance = "@" + hexSentanceCounter + hexTotalSentances + (imageHexLine.ljust(56, "0")) + "\r\n"
+    textFile.write(sentance)
+    textFile.close()
+
+sentanceWriter(imageArray)
