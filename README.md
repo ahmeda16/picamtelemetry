@@ -1,6 +1,6 @@
 # piCAMTelemetry
 
-## piCAM Mimicking Script In Python for CDH-TSAT6 Camera Module Telemetry
+## piCAM (SkyFox Labs) Mimicking Script In Python for CDH-TSAT6 Camera Module Telemetry
 
 
 ### Directions
