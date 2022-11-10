@@ -1,6 +1,6 @@
 # piCAMTelemetry
 
-##piCAM Mimicking Script In Python for CDH-TSAT6 Camera Module Telemetry
+## piCAM Mimicking Script In Python for CDH-TSAT6 Camera Module Telemetry
 
 1) Have The Image In Same Directory As Script
 2) Make Sure Image Resolution DOES NOT EXCEED 4 BYTES IN SIZE (HEX ASCII)
